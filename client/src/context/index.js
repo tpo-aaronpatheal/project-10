@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
-
-import api from '../utils/api';
+import React from 'react';
+import api from '../utils/api.js';
 
 const Context = React.createContext();
 
-export const ContextProvider = (props) => {
-
-    const [courseData, setCourseData] = useState([]);
-
-    setCourseData(api.getAllCourses('courses'));
-
+export const ContextProvider = props => {
+    
     return(
-        <Context.Provider value={courseData}>
+        <Context.Provider value={{ api }}>
             {props.children}
         </Context.Provider>
     )

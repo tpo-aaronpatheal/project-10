@@ -8,6 +8,7 @@ export const ContextProvider = props => {
     const [courses, setCourses] = useState([]);
     const [authUser, setAuthUser] = useState(false);
     const [userEmail, setUserEmail] = useState('');
+    const [error, setError] = useState();
 
     useEffect(() => {
         const getCourses = async () => {
@@ -26,11 +27,11 @@ export const ContextProvider = props => {
         courses,
         authUser,
         userEmail,
-        
+        error,
         actions: {
             setAuthUser,
             setUserEmail,
-            //onChange
+            setError
         }
     }
 

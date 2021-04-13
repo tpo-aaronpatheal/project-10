@@ -1,10 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-//import Context from './context';
 
-//Navigates to page and updates path based upon click. 
 const Nav = () => {
-  //const {  } = useContext(context);
 
     return ( 
         <header>

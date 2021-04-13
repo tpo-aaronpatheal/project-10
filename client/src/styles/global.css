@@ -53,6 +53,12 @@ header nav a:hover {
     color: #fff;
 }
 
+#error {
+    margin: 5% 0 5% 0;
+    color: #800;
+    font-weight: bolder;
+}
+
 .header--signedin li {
     text-align: right;
     line-height: 1.25;

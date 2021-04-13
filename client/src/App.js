@@ -5,17 +5,16 @@ import Context from './context';
 
 function App() {
 
-  const { courseData } = useContext(Context);
+  const { value } = useContext(Context);
 
-  // const getCourses = () => {
-  //   fetch('http://localhost:5000/api/courses')
-  //   .then(res => res.json())
-  //   .then(data => console.log(data))
-  // }
+
+  const getCourses = () => {
+     console.log(value.courses)
+  }
 
   return (
     <>
-      <button onClick={() => console.log(courseData)}>click me</button>
+      <button onClick={getCourses}>click me</button>
     </>
   );
 }

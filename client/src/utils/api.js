@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Context from '../context';
 
 const url = 'http://localhost:5000/api/'
 
@@ -20,6 +19,6 @@ export default {
                 password: password
             }
         });
-        console.log(response);
+        return await response;
     }
 }

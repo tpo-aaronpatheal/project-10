@@ -4,9 +4,8 @@ import { NavLink } from 'react-router-dom';
 //Navigates to page and updates path based upon click. 
 const CourseCard = props => {
 
-    const { key, title, href } = props;
+    const { title, href } = props;
 
-    console.log(key)
 
     return (
         <NavLink className="course--module course--link"  to={`/courses/${href}`}>

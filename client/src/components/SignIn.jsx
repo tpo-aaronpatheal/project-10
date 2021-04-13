@@ -1,18 +1,19 @@
-import React, { useContext, useHistory, useRef } from 'react';
+import React, { useContext, useEffect, useHistory, useRef } from 'react';
 //import { NavLink } from 'react-router-dom';
 import Context from '../context';
+import api from '../utils/api.js';
 
 
 function SignIn() {
 
-    const { value: {actions: {setAuthUser, onChange}} } = useContext(Context);
+    const { value: {actions: {setAuthUser, onChange, setUserEmail}} } = useContext(Context);
 
     const emailInput = useRef('');
     const passwordInput = useRef('');
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(emailInput.current.value, passwordInput.current.value);
+        api.getUser('users' ,emailInput.current.value, passwordInput.current.value);
     }
 
     return (

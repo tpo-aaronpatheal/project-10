@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import Context from './context';
 
-import Nav from './components/nav';
+import Nav from './components/Nav';
+import AllCourses from './components/AllCourses';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
   return (
     <>
       <Nav />
+      <AllCourses />
       <button onClick={getCourses}>click me</button>
     </>
   );

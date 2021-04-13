@@ -1,4 +1,3 @@
-import './styles/global.css';
 import React, { useContext } from 'react';
 import Context from './context';
 

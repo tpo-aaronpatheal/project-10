@@ -2,6 +2,7 @@ import './styles/global.css';
 import React, { useContext } from 'react';
 import Context from './context';
 
+import Nav from './components/nav';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <>
+      <Nav />
       <button onClick={getCourses}>click me</button>
     </>
   );

@@ -6,6 +6,7 @@ const Context = React.createContext();
 export const ContextProvider = props => {
 
     const [courses, setCourses] = useState([]);
+    const [authUser, setAuthUser] = useState(false);
 
     useEffect(() => {
         const getCourses = async () => {
@@ -15,8 +16,19 @@ export const ContextProvider = props => {
         getCourses()
     }, [])
 
+    // const onChange = e => {
+    //     e.preventDefault()
+    //     return console.log(e.target.value);
+    // }
+
     const value = {
-        courses
+        courses,
+        authUser,
+        
+        actions: {
+            setAuthUser,
+            //onChange
+        }
     }
 
     return (

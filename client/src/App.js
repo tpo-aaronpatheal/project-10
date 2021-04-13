@@ -5,10 +5,11 @@ import Context from './context';
 
 function App() {
 
-  const { api } = useContext(Context);
+  const { value } = useContext(Context);
+
 
   const getCourses = () => {
-    api.getAllCourses('courses').then(res => console.log(res.data))
+     console.log(value.courses)
   }
 
   return (

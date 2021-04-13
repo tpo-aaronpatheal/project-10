@@ -11,10 +11,16 @@ function SignIn() {
     const emailInput = useRef('');
     const passwordInput = useRef('');
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        api.getUser('users' ,emailInput.current.value, passwordInput.current.value);
-    }
+        //try { 
+        const response = await api.getUser('users' ,emailInput.current.value, passwordInput.current.value);
+        if (response.status === 200) {
+          setAuthUser(true);
+          setUserEmail(response.data.email);
+        }
+      }
+      
 
     return (
       <>

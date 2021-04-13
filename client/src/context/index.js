@@ -7,11 +7,10 @@ export const ContextProvider = props => {
 
     const [courses, setCourses] = useState([]);
 
-
     useEffect(() => {
-        const getCourses = () => {
-            api.getAllCourses('courses')
-                .then(res => setCourses(res.data));
+        const getCourses = async () => {
+            const response = await api.getAllCourses('courses')
+            setCourses(response.data);
         }
         getCourses()
     }, [])

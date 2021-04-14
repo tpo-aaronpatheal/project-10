@@ -19,8 +19,12 @@ const Errorpage = () => {
       const result = await axios(`http://localhost:3000/api/404`,
       );
       value(result.error)
-    }
-  })
+    };
+
+    fetch();
+  }, []);
+
+  
 
     return (
     <div className='wrap'>

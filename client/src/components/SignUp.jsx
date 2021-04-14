@@ -53,7 +53,8 @@ function SignUp() {
                     <input id="password" name="password" type="password" ref={passwordInput}/>
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <input id="confirmPassword" name="confirmPassword" type="password" ref={confirmPasswordInput}/>
-                    <button className="button" type="submit">Sign Up</button><button className="button button-secondary" onclick="event.preventDefault(); location.href='index.html';">Cancel</button>
+                    <button className="button" type="submit">Sign Up</button>
+                    <NavLink to="/"><button className="button button-secondary" onclick="event.preventDefault(); location.href='index.html';">Cancel</button></NavLink>
                 </form>
                 <p>Already have a user account? Click here to <NavLink to='/signin'>sign in!</NavLink></p>
             </div>

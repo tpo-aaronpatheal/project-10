@@ -10,6 +10,7 @@ export const ContextProvider = props => {
     const [authUser, setAuthUser] = useState(false);
     const [userEmail, setUserEmail] = useState('');
     const [userName, setUserName] = useState('')
+    const [password, setPassword] = useState('');
     const [error, setError] = useState();
 
     useEffect(() => {
@@ -24,6 +25,8 @@ export const ContextProvider = props => {
         if ( Cookies.get('loggedIn') === 'true' ) {
             setAuthUser(true);
             setUserName(Cookies.get('username'));
+            setUserEmail(Cookies.get('email'))
+            setPassword(Cookies.get('pass'));
         }
     }, [])
 
@@ -37,11 +40,13 @@ export const ContextProvider = props => {
         authUser,
         userEmail,
         userName,
+        password,
         error,
         actions: {
             setAuthUser,
             setUserEmail,
             setUserName,
+            setPassword,
             setError
         }
     }

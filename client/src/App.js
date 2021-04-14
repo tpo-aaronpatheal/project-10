@@ -4,6 +4,7 @@ import Nav from './components/Nav';
 import AllCourses from './components/AllCourses';
 import SignIn from './components/SignIn';
 import Notfound from './components/NotFound'
+import ErrorPage from './components/ErrorPage'
 
 function App() {
 
@@ -17,7 +18,10 @@ function App() {
         <Route exact path='/signin'>
           <SignIn />
         </Route>
-        <Route>
+        <Route exact path='/404'>
+          <ErrorPage />
+        </Route>
+        <Route>        
           <Notfound />
         </Route>
       </Switch>

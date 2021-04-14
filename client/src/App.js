@@ -19,7 +19,7 @@ function App() {
         <Route exact path='/signin'>
           <SignIn />
         </Route>
-        <Route>
+        <Route exact path='/error'>
           <ErrorPage />
         </Route>
         <Route>        

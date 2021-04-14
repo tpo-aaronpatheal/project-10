@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useHistory, useRef } from 'react';
-//import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Context from '../context';
 import api from '../utils/api.js';
 
@@ -41,9 +41,9 @@ function SignIn() {
                     <label htmlFor="password">Password</label>
                     <input id="password" name="password" type="password" ref={passwordInput}/>
                     <button className="button" type="submit">Sign In</button>
-                <button className="button button-secondary">Cancel</button>
+                    <NavLink to="/"><button className="button button-secondary">Cancel</button></NavLink>
                 </form>
-                <p>Don't have a user account? Click here to <a href="sign-up.html">sign up</a>!</p>               
+                <p>Don't have a user account? Click here to <NavLink to="/signup">sign up</NavLink>!</p>               
             </div>
         </main>
       </>

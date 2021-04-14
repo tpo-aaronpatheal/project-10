@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../utils/api.js';
+import Cookies from 'js-cookie';
 
 const Context = React.createContext();
 
@@ -8,6 +9,7 @@ export const ContextProvider = props => {
     const [courses, setCourses] = useState([]);
     const [authUser, setAuthUser] = useState(false);
     const [userEmail, setUserEmail] = useState('');
+    const [userName, setUserName] = useState('')
     const [error, setError] = useState();
 
     useEffect(() => {
@@ -16,6 +18,13 @@ export const ContextProvider = props => {
             setCourses(response.data);
         }
         getCourses()
+    }, [])
+
+    useEffect(() => {
+        if ( Cookies.get('loggedIn') === 'true' ) {
+            setAuthUser(true);
+            setUserName(Cookies.get('username'));
+        }
     }, [])
 
     // const onChange = e => {
@@ -27,10 +36,12 @@ export const ContextProvider = props => {
         courses,
         authUser,
         userEmail,
+        userName,
         error,
         actions: {
             setAuthUser,
             setUserEmail,
+            setUserName,
             setError
         }
     }

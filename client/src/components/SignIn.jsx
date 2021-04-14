@@ -1,25 +1,32 @@
-import React, { useContext, useEffect, useHistory, useRef } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext, useRef } from 'react';
+import { NavLink, useHistory} from 'react-router-dom';
+import Cookies from 'js-cookie';
+
 import Context from '../context';
 import api from '../utils/api.js';
 
 
 function SignIn() {
 
-    const { value, value: {actions: {setAuthUser, setUserEmail, setError}} } = useContext(Context);
+    const { value, value: {actions: {setAuthUser, setUserEmail, setUserName, setError}} } = useContext(Context);
 
     const emailInput = useRef('');
     const passwordInput = useRef('');
+    const history = useHistory();
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
         try {
           const response = await api.getUser('users' ,emailInput.current.value, passwordInput.current.value);
-          console.log(response.message);
           if (response.status === 200) {
               setAuthUser(true);
               setUserEmail(response.data.email);
+              setUserName(response.data.name);
+              setError(null);
+              Cookies.set('loggedIn', true, {expires: 1})
+              Cookies.set('username', response.data.name, {expires: 1})
+              history.goBack();
             }
         } catch (error) {
           console.log(error.response.data);

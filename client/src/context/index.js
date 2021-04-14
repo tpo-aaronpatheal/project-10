@@ -30,10 +30,6 @@ export const ContextProvider = props => {
         }
     }, [])
 
-    // const onChange = e => {
-    //     e.preventDefault()
-    //     return console.log(e.target.value);
-    // }
 
     const value = {
         courses,
@@ -47,7 +43,7 @@ export const ContextProvider = props => {
             setUserEmail,
             setUserName,
             setPassword,
-            setError
+            setError,
         }
     }
 

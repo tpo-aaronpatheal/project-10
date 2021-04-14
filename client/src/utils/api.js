@@ -19,5 +19,15 @@ export default {
             }
         });
         return await response;
-    }
+    },
+
+     postCreateUser: async (path, firstName, lastName, emailAddress, password) => {
+         const response = await axios.post(`${url}${path}`, {
+             firstName: firstName,
+             lastName: lastName,
+             emailAddress: emailAddress,
+             password: password
+         });
+         return await response;
+     }
 }

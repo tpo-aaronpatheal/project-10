@@ -1,23 +1,41 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Context from '../context'
 import { NavLink } from 'react-router-dom'
-import api from '../utils/api';
+import axios from 'axios'
 
-const ErrorPage = () => {
-  //  const { value, value: { actions: {setError}} } = useContext(Context);
+// Import API?
+// Async/Await to a global error route?
+// axios?
+// Write in a try block?
+// If .status === 400 || 500
+// useContext(), [error, setError]??
+// {value} = error
 
-   return (
+const Errorpage = () => {
+  const { value } = useContext(Context);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const result = await axios(`http://localhost:3000/api/404`,
+      );
+      value(result.error)
+    }
+  })
+
+    return (
     <div className='wrap'>
-      <h2>It's us, not you!</h2>
+      <h2>{value.error}</h2>
       <p>
         Sorry! We just encountered an unexpected error.
       </p>
-      <NavLink to='/404'>
+      <NavLink to='/'>
         <button>
           Return home
         </button>
       </NavLink>
     </div>
   )
+ 
 }
-export default ErrorPage
+
+export default Errorpage;

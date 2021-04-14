@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import Nav from './components/Nav';
 import AllCourses from './components/AllCourses';
 import SignIn from './components/SignIn';
+import Notfound from './components/NotFound'
 
 function App() {
 
@@ -15,6 +16,9 @@ function App() {
         </Route>
         <Route exact path='/signin'>
           <SignIn />
+        </Route>
+        <Route>
+          <Notfound />
         </Route>
       </Switch>
     </>

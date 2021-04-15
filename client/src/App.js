@@ -8,6 +8,7 @@ import SignUp from './components/SignUp';
 import SignOut from './components/SignOut';
 import Notfound from './components/NotFound'
 import CreateCourse from './components/CreateCourse';
+import Errorpage from './components/ErrorPage';
 
 function App() {
 
@@ -30,6 +31,9 @@ function App() {
         <Route exact path='/courses/create-course'>
           <CreateCourse />
         </Route>
+        <Route exact path='/error'>
+        <Errorpage />
+      </Route>
         <Route>
           <Notfound />
         </Route>

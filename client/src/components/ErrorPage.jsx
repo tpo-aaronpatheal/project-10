@@ -1,25 +1,11 @@
 import React, { useContext, useEffect } from 'react'
 import Context from '../context'
 import { NavLink } from 'react-router-dom'
-import axios from 'axios'
-
 
 const Errorpage = () => {
-  const { value } = useContext(Context);
+  const { value } = useContext(Context)
 
-  useEffect(() => {
-    const fetch = async () => {
-      const result = await axios(`http://localhost:3000/api/404`,
-      );
-      value(result.error)
-    };
-
-    fetch();
-  }, []);
-
-  
-
-    return (
+  return (
     <div className='wrap'>
       <h2>{value.error}</h2>
       <p>
@@ -32,8 +18,6 @@ const Errorpage = () => {
       </NavLink>
     </div>
   )
- 
 }
 
-
-export default Errorpage;
+export default Errorpage

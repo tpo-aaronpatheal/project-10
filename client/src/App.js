@@ -21,12 +21,6 @@ function App() {
         <Route exact path='/signin'>
           <SignIn />
         </Route>
-<<<<<<< HEAD
-        <Route exact path='/error'>
-          <ErrorPage />
-        </Route>
-        <Route>        
-=======
         <Route exact path='/signup'>
           <SignUp />
         </Route>
@@ -34,7 +28,6 @@ function App() {
           <SignOut />
         </Route>
         <Route>
->>>>>>> e9626e36eecbaed78bf8dc39b3533e02bf362ac3
           <Notfound />
         </Route>
       </Switch>

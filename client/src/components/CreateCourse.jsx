@@ -1,6 +1,7 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context';
+import ValidationError from '../components/ValidationError';
 
 
 const CreateCourse = () => {
@@ -8,13 +9,12 @@ const CreateCourse = () => {
     let history = useHistory()
 
 
-    const { value: { authUser, userId, userName }, value: { actions: { setNewCourse } } } = useContext(Context);
+    const { value: { authUser, userId, userName, validationError }, value: { actions: { setNewCourse } } } = useContext(Context);
 
     const courseTitle = useRef('');
     const courseDescription = useRef('');
     const estimatedTime = useRef('');
     const materialsNeeded = useRef('');
-
 
     const onSubmit = e => {
         e.preventDefault();
@@ -38,13 +38,7 @@ const CreateCourse = () => {
     return ( 
         <div className="wrap">
                 <h2>Create Course</h2>
-                {/* <div className="validation--errors">
-                    <h3>Validation Errors</h3>
-                    <ul>
-                        <li>Please provide a value for "Title"</li>
-                        <li>Please provide a value for "Description"</li>
-                    </ul>
-                </div> */}
+                {validationError ? <ValidationError />: null}
                 <form onSubmit={onSubmit}>
                     <div className="main--flex">
                         <div>

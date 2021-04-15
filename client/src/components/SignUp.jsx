@@ -9,8 +9,6 @@ function SignUp() {
     const { value } = useContext(Context);
     const history = useHistory();
 
-    //const [error, setError] = useState([]);
-
     const firstNameInput = useRef('');
     const lastNameInput = useRef('');
     const emailInput = useRef('');

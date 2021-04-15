@@ -7,6 +7,7 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import SignOut from './components/SignOut';
 import Notfound from './components/NotFound'
+import ErrorPage from './components/ErrorPage'
 
 function App() {
 

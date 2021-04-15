@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import api from '../utils/api.js';
 import Cookies from 'js-cookie';
 
@@ -7,6 +7,7 @@ const Context = React.createContext();
 
 export const ContextProvider = props => {
     let history = useHistory()
+    let path = useLocation().pathname
 
     const [courses, setCourses] = useState([]);
     useEffect(() => {
@@ -15,7 +16,7 @@ export const ContextProvider = props => {
             setCourses(response.data);
         }
         getCourses()
-    }, []);
+    }, [path]);
 
     const [authUser, setAuthUser] = useState(false);
     const [userId, setUserId] = useState()
@@ -24,10 +25,19 @@ export const ContextProvider = props => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState([]);
     const [validationError, setValidationError] = useState([]);
+    const [courseValues, setCourseValues] = useState({
+        courseId: null,
+        title: "",
+        description: "",
+        estimatedTime: "",
+        materialsNeeded:"",
+        userId: null
+    });
+    //any time "create course" info is updated, try to add it and display error if there is one
+
 
     const [newCourse, setNewCourse] = useState({});
-    //any time "create course" info is updated, try to add it and display error if there is one
-    useEffect(() => {
+      useEffect(() => {
         let id;
         const addCourse = async () => {
             try {
@@ -46,7 +56,7 @@ export const ContextProvider = props => {
     useEffect(() => {
         if ( Cookies.get('loggedIn') === 'true' ) {
             setAuthUser(true);
-            setUserId(Cookies.get('userId'));
+            setUserId(parseInt(Cookies.get('userId')));
             setUserName(Cookies.get('username'));
             setUserEmail(Cookies.get('email'))
             setPassword(Cookies.get('pass'));
@@ -62,6 +72,7 @@ export const ContextProvider = props => {
         password,
         error,
         validationError,
+        courseValues,
         actions: {
             setAuthUser,
             setUserId,
@@ -69,7 +80,8 @@ export const ContextProvider = props => {
             setUserName,
             setPassword,
             setError,
-            setNewCourse
+            setNewCourse,
+            setCourseValues
         }
     }
 

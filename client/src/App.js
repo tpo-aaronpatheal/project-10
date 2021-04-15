@@ -11,6 +11,7 @@ import SignOut from './components/SignOut';
 import CourseDetail from './components/CourseDetail'
 import Notfound from './components/NotFound'
 import CreateCourse from './components/CreateCourse';
+import DeleteCourse from './components/DeleteCourse';
 
 function App() {
 
@@ -37,6 +38,9 @@ function App() {
         </Route>
         <Route exact path={`/courses/:id`}>
           <CourseDetail />
+        </Route>
+        <Route exact path={'/courses/:id/delete'}>
+          <DeleteCourse />
         </Route>
         <Route>
           <Notfound />

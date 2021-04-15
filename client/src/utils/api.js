@@ -52,5 +52,16 @@ export default {
             }
         )
         return response
+    },
+
+    deleteCourse: async(path, email, password) => {
+        const decodedPassword = atob(password);
+        const response = await axios.delete(`${url}${path}`, {
+            auth: {
+                username: email,
+                password: decodedPassword
+            }
+        });
+        return await console.log(response);
     }
 }

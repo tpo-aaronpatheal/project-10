@@ -12,6 +12,7 @@ import CourseDetail from './components/CourseDetail'
 import Notfound from './components/NotFound'
 import CreateCourse from './components/CreateCourse';
 import DeleteCourse from './components/DeleteCourse';
+import Forbidden from './components/Forbidden'
 
 function App() {
 

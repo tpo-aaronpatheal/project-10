@@ -11,14 +11,23 @@ export default {
      },
      
     getUser: async (path, email, password) => {
-        const encodedCredentials = btoa(`${email}:${password}`);
-       // options.headers['Authorization'] = `Basic ${encodedCredentials}`;
+        const decodedPassword = atob(password);
         const response = await axios.get(`${url}${path}`, {
             auth: {
                 username: email,
-                password: password
+                password: decodedPassword
             }
         });
         return await response;
-    }
+    },
+
+     postCreateUser: async (path, firstName, lastName, emailAddress, password) => {
+         const response = await axios.post(`${url}${path}`, {
+             firstName: firstName,
+             lastName: lastName,
+             emailAddress: emailAddress,
+             password: password
+         });
+         return await response;
+     }
 }

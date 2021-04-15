@@ -22,7 +22,7 @@ function SignIn() {
           const response = await api.getUser('users' ,emailInput.current.value, encodedPassword);
           if (response.status === 200) {
               setAuthUser(true);
-              setUserId(response.data.id);
+              setUserId(parseInt(response.data.id));
               setUserEmail(response.data.email);
               setPassword(encodedPassword)
               setUserName(response.data.name);

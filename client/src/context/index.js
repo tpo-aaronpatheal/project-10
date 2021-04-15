@@ -23,19 +23,19 @@ export const ContextProvider = props => {
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('');
     const [error, setError] = useState([]);
+    const [validationError, setValidationError] = useState([]);
 
     const [newCourse, setNewCourse] = useState({});
+    //any time "create course" info is updated, try to add it and display error if there is one
     useEffect(() => {
         let id;
         const addCourse = async () => {
             try {
                 const response = await api.postNewCourse(newCourse, userEmail, password);
-                console.log(response)
                 id = response.data.id;
                 history.push(`/courses/${id}`);
             } catch (error) {
-                setError(error.response.data);
-                console.log(error.response.data.errors)
+                setValidationError(error.response.data.errors);
             }
         }
         addCourse();
@@ -61,6 +61,7 @@ export const ContextProvider = props => {
         userName,
         password,
         error,
+        validationError,
         actions: {
             setAuthUser,
             setUserId,

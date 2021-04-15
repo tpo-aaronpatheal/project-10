@@ -32,7 +32,7 @@ function App() {
         <Route exact path='/signout'>
           <SignOut />
         </Route>
-        <Route exact path='/courses/create-course'>
+        <Route exact path='/courses/create'>
           <CreateCourse />
         </Route>
         <Route exact path={`/courses/:id`}>

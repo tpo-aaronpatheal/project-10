@@ -10,6 +10,11 @@ export default {
         return response;
     },
 
+    getCourse: async (path) => {
+        const response = await axios.get(`${url}${path}`);
+        return response;
+    },
+     
     getUser: async (path, email, password) => {
         const decodedPassword = atob(password);
         const response = await axios.get(`${url}${path}`, {

@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useEffect } from 'react';
+import React, { useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context';
 import ValidationError from '../components/ValidationError';

@@ -10,9 +10,10 @@ const CourseDetail = () => {
 
     const index = useLocation().pathname.substring(9);
 
-    useEffect(async () => {
+    useEffect(() => {
+        const getCourse = async () => {
             let response = await api.getCourse(`courses/${index}`)
-            let course = await {
+            let course = {
                 courseId: response.data.id,
                 title: response.data.title,
                 description: response.data.description,
@@ -20,24 +21,26 @@ const CourseDetail = () => {
                 materialsNeeded: response.data.materialsNeeded,
                 userId: response.data.User.id
             }
-            console.log(response)
-            await value.actions.setCourseValues(course);
+            value.actions.setCourseValues(course);
+        }
+        getCourse();
+        // eslint-disable-next-line
     }, [])
 
-    return ( 
+    return (
         <>
-        <div className="actions--bar">
-            <div className="wrap">
-                {value.courseValues.userId === value.userId ? 
-                <>
-                    <NavLink className="button" to={`/courses/${index}/update`}>Update Course</NavLink>
-                    <NavLink className="button" to={`/courses/${index}/delete`}>Delete Course</NavLink>
-                </>
-                :
-                null}
-                <NavLink className="button button-secondary" to="/">Return to List</NavLink>
+            <div className="actions--bar">
+                <div className="wrap">
+                    {value.courseValues.userId === value.userId ?
+                        <>
+                            <NavLink className="button" to={`/courses/${index}/update`}>Update Course</NavLink>
+                            <NavLink className="button" to={`/courses/${index}/delete`}>Delete Course</NavLink>
+                        </>
+                        :
+                        null}
+                    <NavLink className="button button-secondary" to="/">Return to List</NavLink>
+                </div>
             </div>
-        </div>
             <div className="wrap">
                 <h2>Course Detail</h2>
                 <form>
@@ -54,7 +57,7 @@ const CourseDetail = () => {
 
                             <h3 className="course--detail--title">Materials Needed</h3>
                             <ul className="course--detail--list">
-                               {value.courseValues.materialsNeeded ? <ReactMarkdown children={value.courseValues.materialsNeeded} /> : <p>N/A</p>}
+                                {value.courseValues.materialsNeeded ? <ReactMarkdown children={value.courseValues.materialsNeeded} /> : <p>N/A</p>}
                             </ul>
                         </div>
                     </div>
@@ -63,5 +66,5 @@ const CourseDetail = () => {
         </>
     );
 }
- 
+
 export default CourseDetail;

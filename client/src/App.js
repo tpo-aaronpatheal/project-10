@@ -5,6 +5,7 @@ import Nav from './components/Nav';
 import AllCourses from './components/AllCourses';
 import SignIn from './components/SignIn';
 import Notfound from './components/NotFound'
+import CreateCourse from './components/CreateCourse';
 
 function App() {
 
@@ -17,6 +18,9 @@ function App() {
         </Route>
         <Route exact path='/signin'>
           <SignIn />
+        </Route>
+        <Route exact path='/courses/create-course'>
+          <CreateCourse />
         </Route>
         <Route>
           <Notfound />

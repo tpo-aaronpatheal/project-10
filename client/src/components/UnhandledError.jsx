@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import Context from '../context'
 import { NavLink } from 'react-router-dom'
 
-const Errorpage = () => {
+const UnhandledError = () => {
   const { value } = useContext(Context)
 
   return (
@@ -20,4 +20,4 @@ const Errorpage = () => {
   )
 }
 
-export default Errorpage
+export default UnhandledError

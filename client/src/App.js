@@ -13,6 +13,7 @@ import Notfound from './components/NotFound'
 import CreateCourse from './components/CreateCourse';
 import DeleteCourse from './components/DeleteCourse';
 import Forbidden from './components/Forbidden'
+import UnhandledError from './components/UnhandledError'
 
 function App() {
 
@@ -42,6 +43,9 @@ function App() {
         </Route>
         <Route exact path={'/courses/:id/delete'}>
           <DeleteCourse />
+        </Route>
+        <Route exact path={'/error'}>
+          <UnhandledError />
         </Route>
         <Route>
           <Notfound />

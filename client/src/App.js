@@ -47,6 +47,9 @@ function App() {
         <Route exact path={'/error'}>
           <UnhandledError />
         </Route>
+        <Route exact path={'/forbidden'}>
+          <UnhandledError />
+        </Route>
         <Route>
           <Notfound />
         </Route>

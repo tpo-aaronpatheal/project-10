@@ -13,6 +13,7 @@ const DeleteCourse = () => {
     useEffect(() => {
         api.deleteCourse(`courses/${value.courseValues.courseId}`, value.userEmail, value.password)
         history.go(0);
+        // eslint-disable-next-line
     }, [])
 
     return ( 

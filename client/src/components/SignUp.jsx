@@ -19,7 +19,7 @@ function SignUp() {
         e.preventDefault();
         const encodedPassword = btoa(passwordInput.current.value);
           if(passwordInput.current.value === confirmPasswordInput.current.value){
-            const response = await api.postCreateUser('users', firstNameInput.current.value, lastNameInput.current.value, emailInput.current.value, passwordInput.current.value);
+            await api.postCreateUser('users', firstNameInput.current.value, lastNameInput.current.value, emailInput.current.value, passwordInput.current.value);
             value.actions.setAuthUser(true);
             value.actions.setUserEmail(emailInput.current.value);
             value.actions.setPassword(encodedPassword);

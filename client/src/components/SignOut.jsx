@@ -12,6 +12,7 @@ const SignOut = () => {
         Cookies.remove('username');
         Cookies.remove('loggedIn');
         history.go(0);
+        // eslint-disable-next-line
     }, [])
 
     return ( 

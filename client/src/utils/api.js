@@ -1,13 +1,22 @@
 import axios from 'axios';
 
+
 const url = 'http://localhost:5000/api/'
+
 
 // eslint-disable-next-line
 export default {
+    
 
     getAllCourses: async (path) => {
-        const response = await axios.get(`${url}${path}`);
-        return response;
+        try {
+            const response = await axios.get(`${url}${path}`);
+            return response;
+        } catch (error) {
+            console.log(error)
+            return 'error'
+        }
+   
     },
 
     getCourse: async (path) => {

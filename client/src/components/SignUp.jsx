@@ -3,6 +3,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import Context from '../context';
 import api from '../utils/api.js';
 import Cookies from 'js-cookie';
+import ValidationError from '../components/ValidationError';
 
 function SignUp() {
 
@@ -17,29 +18,31 @@ function SignUp() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        const encodedPassword = btoa(passwordInput.current.value);
-          if(passwordInput.current.value === confirmPasswordInput.current.value){
-            await api.postCreateUser('users', firstNameInput.current.value, lastNameInput.current.value, emailInput.current.value, passwordInput.current.value);
-            value.actions.setAuthUser(true);
-            value.actions.setUserEmail(emailInput.current.value);
-            value.actions.setPassword(encodedPassword);
-            value.actions.setUserName(`${firstNameInput.current.value} ${lastNameInput.current.value}`);
-           // setError(null);
-            Cookies.set('loggedIn', true, {expires: 1})
-            Cookies.set('username', `${firstNameInput.current.value} ${lastNameInput.current.value}`, {expires: 1})
-            Cookies.set('email', emailInput.current.value, {expires: 1});
-            Cookies.set('pass', encodedPassword, {expires: 1});
-            history.goBack();
-          } else {
-            console.log('passwords do not match')
-          }
+        try{
+            const encodedPassword = btoa(passwordInput.current.value);
+            const response = await api.postCreateUser('users', firstNameInput.current.value, lastNameInput.current.value, emailInput.current.value, passwordInput.current.value);
+            if(passwordInput.current.value === confirmPasswordInput.current.value){
+                value.actions.setAuthUser(true);
+                value.actions.setUserEmail(emailInput.current.value);
+                value.actions.setPassword(encodedPassword);
+                value.actions.setUserName(`${firstNameInput.current.value} ${lastNameInput.current.value}`);
+                Cookies.set('loggedIn', true, {expires: 1})
+                Cookies.set('username', `${firstNameInput.current.value} ${lastNameInput.current.value}`, {expires: 1})
+                Cookies.set('email', emailInput.current.value, {expires: 1});
+                Cookies.set('pass', encodedPassword, {expires: 1});
+                history.goBack();
+             }
+        } catch (error) {
+                value.actions.setValidationError(error.response.data.errors);
+        }
      }
     
     return (
         <>
             <div className="form--centered">
                 <h2>Sign Up</h2>
-                
+                {value.error ? <h3 id="error">{value.error}</h3> : null} 
+                {value.validationError ? <ValidationError />: null}
                 <form onSubmit={onSubmit}>
                     <label htmlFor="firstName">First Name</label>
                     <input id="firstName" name="firstName" type="text" ref={firstNameInput}/>

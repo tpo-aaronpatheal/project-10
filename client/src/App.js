@@ -11,6 +11,7 @@ import Notfound from './components/NotFound'
 import CreateCourse from './components/CreateCourse';
 import DeleteCourse from './components/DeleteCourse';
 import PrivateRoute from './components/PrivateRoute';
+import UnhandledError from './components/UnhandledError';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <PrivateRoute path={'/courses/create'} component={CreateCourse}/>
         <Route exact path={`/courses/:id`} component={CourseDetail}/>
         <Route exact path={'/courses/:id/delete'} component={DeleteCourse}/>
+        <Route exact path='/error' component={UnhandledError} />
         <Route component={Notfound} />
       </Switch>
     </>

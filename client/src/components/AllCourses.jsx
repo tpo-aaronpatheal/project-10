@@ -11,9 +11,9 @@ const AllCourses = () => {
         <>
             <main>
                 <div className="wrap main--grid">
-                    {value.courses.map(course => {
-                        return <CourseCard key={course.id} title={course.title} href={course.id} />
-                    })}
+                {value.courses.map(course => { 
+                    return <CourseCard key={course.id} title={course.title} href={course.id} />
+                 })}
                     <NavLink className="course--module course--add--module" to={'/courses/create'}>
                         <span className="course--add--title">
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"

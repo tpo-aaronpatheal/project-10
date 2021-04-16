@@ -24,7 +24,7 @@ export const ContextProvider = props => {
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('');
     const [error, setError] = useState([]);
-    const [validationError, setValidationError] = useState([]);
+    const [validationError, setValidationError] = useState(null);
     const [courseValues, setCourseValues] = useState({
         courseId: null,
         title: "",
@@ -44,11 +44,15 @@ export const ContextProvider = props => {
                 const response = await api.postNewCourse(newCourse, userEmail, password);
                 id = response.data.id;
                 history.push(`/courses/${id}`);
+                setValidationError(null);
             } catch (error) {
                 setValidationError(error.response.data.errors);
+                console.log(error)
             }
         }
-        addCourse();
+        if (authUser) { 
+            addCourse()
+        }
         // eslint-disable-next-line
     }, [newCourse]);
 

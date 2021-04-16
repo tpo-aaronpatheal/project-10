@@ -38,7 +38,9 @@ const CreateCourse = () => {
     return ( 
         <div className="wrap">
                 <h2>Create Course</h2>
+
                 {validationError ? <ValidationError />: null}
+                
                 <form onSubmit={onSubmit}>
                     <div className="main--flex">
                         <div>
@@ -46,7 +48,7 @@ const CreateCourse = () => {
                             <input id="courseTitle" name="courseTitle" type="text" ref={courseTitle}/>
 
                             <label htmlFor="courseAuthor">Course Author</label>
-                            <input id="courseAuthor" name="courseAuthor" type="text" value={userName}/>
+                            <input id="courseAuthor" name="courseAuthor" type="text" value={userName} readOnly/>
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea id="courseDescription" name="courseDescription" ref={courseDescription}></textarea>

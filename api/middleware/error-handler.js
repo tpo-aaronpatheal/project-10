@@ -12,7 +12,8 @@ router.use((err, req, res, next) => {
     .send({
       "status": err.status || 500,
       "message": err.message
-    });
+    })
+    .json({ err })
 });
 
 module.exports = router;

@@ -20,7 +20,7 @@ function SignUp() {
         e.preventDefault();
         try{
             const encodedPassword = btoa(passwordInput.current.value);
-            const response = await api.postCreateUser('users', firstNameInput.current.value, lastNameInput.current.value, emailInput.current.value, passwordInput.current.value);
+            await api.postCreateUser('users', firstNameInput.current.value, lastNameInput.current.value, emailInput.current.value, passwordInput.current.value);
             if(passwordInput.current.value === confirmPasswordInput.current.value){
                 value.actions.setAuthUser(true);
                 value.actions.setUserEmail(emailInput.current.value);
@@ -31,9 +31,12 @@ function SignUp() {
                 Cookies.set('email', emailInput.current.value, {expires: 1});
                 Cookies.set('pass', encodedPassword, {expires: 1});
                 history.goBack();
+                value.actions.setValidationError(null)
              }
         } catch (error) {
-                value.actions.setValidationError(error.response.data.errors);
+            console.error(error)
+            const sqlError = error.response.data.errors;
+            sqlError ? value.actions.setValidationError(sqlError) : history.push('/error');
         }
      }
     

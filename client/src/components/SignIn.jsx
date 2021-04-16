@@ -35,8 +35,9 @@ function SignIn() {
               history.goBack();
             }
         } catch (error) {
-          console.log(error.response.data);
-          setError(error.response.data);
+          const errorMessage = error.response.data;
+          const errorStatus = error.response.status; 
+          errorStatus === 401 ? setError(errorMessage) : history.push('/error');
         }
 
       }

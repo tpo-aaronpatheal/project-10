@@ -9,18 +9,25 @@ export const ContextProvider = props => {
     let history = useHistory()
     let path = useLocation().pathname
 
+    // catch server/sql validation  errors
+    const asyncHandler = async cb => {
+        try {
+            await cb()
+        } catch (error) {
+            console.error(error)
+            const sqlError = error.response.data.errors;
+            sqlError ? setValidationError(sqlError) : history.push('/error');
+        }
+    }
+
     const [courses, setCourses] = useState([]);
     useEffect(() => {
         const getCourses = async () => {
             const response = await api.getAllCourses('courses')
-            setCourses(response.data);
-            console.log(response)
-            if(response === 'error') {
-                history.push('/error')
-            }
-           
+            setCourses(response.data)
         }
-        getCourses()
+        asyncHandler(getCourses);
+        // eslint-disable-next-line
     }, [path]);
 
     const [authUser, setAuthUser] = useState(false);
@@ -40,23 +47,17 @@ export const ContextProvider = props => {
     });
     //any time "create course" info is updated, try to add it and display error if there is one
 
-
     const [newCourse, setNewCourse] = useState({});
       useEffect(() => {
         let id;
         const addCourse = async () => {
-            try {
-                const response = await api.postNewCourse(newCourse, userEmail, password);
-                id = response.data.id;
-                history.push(`/courses/${id}`);
-                setValidationError(null);
-            } catch (error) {
-                setValidationError(error.response.data.errors);
-                console.log(error)
-            }
+            const response = await api.postNewCourse(newCourse, userEmail, password);
+            id = response.data.id;
+            history.push(`/courses/${id}`);
+            setValidationError(null);
         }
         if (authUser) { 
-            addCourse()
+            asyncHandler(addCourse);
         }
         // eslint-disable-next-line
     }, [newCourse]);

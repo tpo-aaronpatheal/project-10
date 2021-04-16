@@ -3,20 +3,13 @@ import axios from 'axios';
 
 const url = 'http://localhost:5000/api/'
 
-
 // eslint-disable-next-line
 export default {
     
 
     getAllCourses: async (path) => {
-        try {
-            const response = await axios.get(`${url}${path}`);
+        const response = await axios.get(`${url}${path}`);
             return response;
-        } catch (error) {
-            console.log(error)
-            return 'error'
-        }
-   
     },
 
     getCourse: async (path) => {
@@ -65,12 +58,11 @@ export default {
 
     deleteCourse: async(path, email, password) => {
         const decodedPassword = atob(password);
-        const response = await axios.delete(`${url}${path}`, {
+        await axios.delete(`${url}${path}`, {
             auth: {
                 username: email,
                 password: decodedPassword
             }
         });
-        return await console.log(response);
     }
 }

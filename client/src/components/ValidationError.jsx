@@ -9,7 +9,8 @@ const ValidationError = () => {
             <h3>Validation Errors</h3>
             <ul>
                 {validationError.map(error => {
-                    return <li>{error}</li>
+                    //find a better key?!?!
+                    return <li key={error}>{error}</li>
                 })}
             </ul>
         </div>

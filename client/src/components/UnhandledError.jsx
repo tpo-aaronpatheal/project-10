@@ -1,15 +1,12 @@
-import React, { useContext, useEffect } from 'react'
-import Context from '../context'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 const UnhandledError = () => {
-  const { value } = useContext(Context)
 
   return (
     <div className='wrap'>
-      <h2>{value.error}</h2>
       <p>
-        Sorry! We just encountered an unexpected error.
+        Something went wrong.
       </p>
       <NavLink to='/'>
         <button>

@@ -14,6 +14,11 @@ export const ContextProvider = props => {
         const getCourses = async () => {
             const response = await api.getAllCourses('courses')
             setCourses(response.data);
+            console.log(response)
+            if(response === 'error') {
+                history.push('/error')
+            }
+           
         }
         getCourses()
     }, [path]);

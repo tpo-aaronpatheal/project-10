@@ -81,7 +81,8 @@ export const ContextProvider = props => {
             setPassword,
             setError,
             setNewCourse,
-            setCourseValues
+            setCourseValues,
+            setValidationError
         }
     }
 

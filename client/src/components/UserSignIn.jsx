@@ -6,7 +6,7 @@ import Context from '../context';
 import api from '../utils/api.js';
 
 
-function SignIn() {
+function UserSignIn() {
 
     const { value, value: {actions: {setAuthUser, setUserId, setUserEmail, setUserName, setError, setPassword, asyncHandler}} } = useContext(Context);
 
@@ -59,4 +59,4 @@ function SignIn() {
     );
   }
   
-  export default SignIn;
+  export default UserSignIn;

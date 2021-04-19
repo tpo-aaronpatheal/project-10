@@ -3,9 +3,9 @@ import { NavLink, useHistory } from 'react-router-dom';
 import Context from '../context';
 import api from '../utils/api.js';
 import Cookies from 'js-cookie';
-import ValidationError from '../components/ValidationError';
+import ValidationError from './ValidationError';
 
-function SignUp() {
+function UserSignUp() {
 
     const { value } = useContext(Context);
     const history = useHistory();
@@ -24,7 +24,6 @@ function SignUp() {
                 value.actions.setUserEmail(emailInput.current.value);
                 value.actions.setPassword(encodedPassword);
                 value.actions.setUserName(`${firstNameInput.current.value} ${lastNameInput.current.value}`);
-                //value.actions.setError(null);
                 Cookies.set('loggedIn', true, {expires: 1})
                 Cookies.set('username', `${firstNameInput.current.value} ${lastNameInput.current.value}`, {expires: 1})
                 Cookies.set('email', emailInput.current.value, {expires: 1});
@@ -32,6 +31,15 @@ function SignUp() {
                 history.goBack();
                 value.actions.setValidationError(null)
              }
+    }
+
+    const validatePassword = () => {
+        if(passwordInput.current.value === confirmPasswordInput.current.value){
+            confirmPasswordInput.current.setCustomValidity('');
+            console.log(confirmPasswordInput);
+        } else {
+            confirmPasswordInput.current.setCustomValidity("Passwords do not match");
+        }
     }
 
     const onSubmit = async (e) => {
@@ -43,7 +51,6 @@ function SignUp() {
         <>
             <div className="form--centered">
                 <h2>Sign Up</h2>
-                {value.error ? <h3 id="error">{value.error}</h3> : null} 
                 {value.validationError ? <ValidationError />: null}
                 <form onSubmit={onSubmit}>
                     <label htmlFor="firstName">First Name</label>
@@ -53,11 +60,11 @@ function SignUp() {
                     <label htmlFor="emailAddress">Email Address</label>
                     <input id="emailAddress" name="emailAddress" type="email" ref={emailInput}/>
                     <label htmlFor="password">Password</label>
-                    <input id="password" name="password" type="password" ref={passwordInput}/>
+                    <input id="password" name="password" type="password" onChange={validatePassword} ref={passwordInput}/>
                     <label htmlFor="confirmPassword">Confirm Password</label>
-                    <input id="confirmPassword" name="confirmPassword" type="password" ref={confirmPasswordInput}/>
+                    <input id="confirmPassword" name="confirmPassword" type="password" onKeyUp={validatePassword} ref={confirmPasswordInput}/>
                     <button className="button" type="submit">Sign Up</button>
-                    <NavLink to="/"><button className="button button-secondary" onclick="event.preventDefault(); location.href='index.html';">Cancel</button></NavLink>
+                    <NavLink to="/"><button className="button button-secondary">Cancel</button></NavLink>
                 </form>
                 <p>Already have a user account? Click here to <NavLink to='/signin'>sign in!</NavLink></p>
             </div>
@@ -66,4 +73,4 @@ function SignUp() {
 }
 
 
-export default SignUp;
+export default UserSignUp;

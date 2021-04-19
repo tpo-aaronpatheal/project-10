@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Switch, Route } from 'react-router-dom'
 
-import Nav from './components/Nav';
-import AllCourses from './components/AllCourses';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import SignOut from './components/SignOut';
+import Context from './context';
+
+import Header from './components/Header';
+import Courses from './components/Courses';
+import UserSignIn from './components/UserSignIn';
+import UserSignUp from './components/UserSignUp';
+import UserSignOut from './components/UserSignOut';
 import CourseDetail from './components/CourseDetail'
 import Notfound from './components/NotFound'
 import CreateCourse from './components/CreateCourse';
@@ -16,21 +18,22 @@ import UnhandledError from './components/UnhandledError';
 import Forbidden from './components/Forbidden';
 
 function App() {
+  
+  const { value } = useContext(Context);
 
   return (
     <>
-      <Nav />
+      <Header />
       <Switch>
-        <Route exact path='/' component={AllCourses} />
-        <Route exact path='/signin' component={SignIn} />
-        <Route exact path='/signup' component={SignUp} />
-        <Route exact path='/signout' component={SignOut} />
+        <Route exact path='/' component={Courses} />
+        <Route exact path='/signin' component={UserSignIn} />
+        <Route exact path='/signup' component={UserSignUp} />
+        <Route exact path='/signout' component={UserSignOut} />
         <PrivateRoute path={'/courses/create'} component={CreateCourse}/>
         <Route exact path={`/courses/:id`} component={CourseDetail}/>
-        <PrivateRoute path={'/courses/:id/update'} component={UpdateCourse}/>
-        <PrivateRoute exact path={'/courses/:id/delete'} component={DeleteCourse}/>
+        <PrivateRoute exact path={'/courses/:id/update'} component={value.courseValues.userId === value.userId ? UpdateCourse : Forbidden}/>
+        <PrivateRoute exact path={'/courses/:id/delete'} component={value.courseValues.userId === value.userId ? DeleteCourse : Forbidden}/>
         <Route exact path='/error' component={UnhandledError} />
-        <Route exact path={`/forbidden`} component={Forbidden}/>
         <Route component={Notfound} />
       </Switch>
     </>

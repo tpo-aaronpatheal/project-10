@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 const url = 'http://localhost:5000/api/'
 
 // eslint-disable-next-line

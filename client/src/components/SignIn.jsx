@@ -8,17 +8,14 @@ import api from '../utils/api.js';
 
 function SignIn() {
 
-    const { value, value: {actions: {setAuthUser, setUserId, setUserEmail, setUserName, setError, setPassword}} } = useContext(Context);
+    const { value, value: {actions: {setAuthUser, setUserId, setUserEmail, setUserName, setError, setPassword, asyncHandler}} } = useContext(Context);
 
     const emailInput = useRef('');
     const passwordInput = useRef('');
     const history = useHistory();
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-          const encodedPassword = btoa(passwordInput.current.value)
+    const doStuff = async () => {
+      const encodedPassword = btoa(passwordInput.current.value)
           const response = await api.getUser('users' ,emailInput.current.value, encodedPassword);
           if (response.status === 200) {
               setAuthUser(true);
@@ -34,12 +31,11 @@ function SignIn() {
               Cookies.set('pass', encodedPassword, {expires: 1});
               history.goBack();
             }
-        } catch (error) {
-          const errorMessage = error.response.data;
-          const errorStatus = error.response.status; 
-          errorStatus === 401 ? setError(errorMessage) : history.push('/error');
-        }
+    }
 
+    const onSubmit = (e) => {
+        e.preventDefault();
+        asyncHandler(doStuff);
       }
       
 

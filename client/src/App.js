@@ -13,6 +13,7 @@ import DeleteCourse from './components/DeleteCourse';
 import UpdateCourse from './components/UpdateCourse';
 import PrivateRoute from './components/PrivateRoute';
 import UnhandledError from './components/UnhandledError';
+import Forbidden from './components/Forbidden';
 
 function App() {
 
@@ -27,8 +28,9 @@ function App() {
         <PrivateRoute path={'/courses/create'} component={CreateCourse}/>
         <Route exact path={`/courses/:id`} component={CourseDetail}/>
         <PrivateRoute path={'/courses/:id/update'} component={UpdateCourse}/>
-        <Route exact path={'/courses/:id/delete'} component={DeleteCourse}/>
+        <PrivateRoute exact path={'/courses/:id/delete'} component={DeleteCourse}/>
         <Route exact path='/error' component={UnhandledError} />
+        <Route exact path={`/forbidden`} component={Forbidden}/>
         <Route component={Notfound} />
       </Switch>
     </>

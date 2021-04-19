@@ -55,6 +55,7 @@ export const ContextProvider = props => {
         materialsNeeded: "",
         userId: null
     });
+    
     //any time "create course" info is updated, try to add it and display error if there is one
 
     const [newCourse, setNewCourse] = useState({});

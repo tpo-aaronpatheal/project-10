@@ -32,6 +32,7 @@ const CourseDetail = () => {
         // eslint-disable-next-line
     }, [])
 
+    //TOP UPDATE
     return (
         <>
             <div className="actions--bar">

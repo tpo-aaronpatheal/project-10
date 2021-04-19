@@ -16,10 +16,8 @@ function SignUp() {
     const passwordInput = useRef('');
     const confirmPasswordInput = useRef('');
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        try{
-            const encodedPassword = btoa(passwordInput.current.value);
+    const doStuff = async () => {
+        const encodedPassword = btoa(passwordInput.current.value);
             await api.postCreateUser('users', firstNameInput.current.value, lastNameInput.current.value, emailInput.current.value, passwordInput.current.value);
             if(passwordInput.current.value === confirmPasswordInput.current.value){
                 value.actions.setAuthUser(true);
@@ -33,11 +31,11 @@ function SignUp() {
                 history.goBack();
                 value.actions.setValidationError(null)
              }
-        } catch (error) {
-            console.error(error)
-            const sqlError = error.response.data.errors;
-            sqlError ? value.actions.setValidationError(sqlError) : history.push('/error');
-        }
+    }
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        value.actions.asyncHandler(doStuff);
      }
     
     return (

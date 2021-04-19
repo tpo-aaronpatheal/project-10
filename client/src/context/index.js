@@ -14,9 +14,19 @@ export const ContextProvider = props => {
         try {
             await cb()
         } catch (error) {
-            console.error(error)
-            const sqlError = error.response.data.errors;
-            sqlError ? setValidationError(sqlError) : history.push('/error');
+            const { response: { status, data, data: { errors } } } = error;
+
+            switch (status) {
+                case 400:
+                    setValidationError(errors);
+                    break;
+                case 401:
+                    setError(data);
+                    break;
+                default:
+                    history.push('/error');
+                    break;
+            }
         }
     }
 
@@ -42,13 +52,13 @@ export const ContextProvider = props => {
         title: "",
         description: "",
         estimatedTime: "",
-        materialsNeeded:"",
+        materialsNeeded: "",
         userId: null
     });
     //any time "create course" info is updated, try to add it and display error if there is one
 
     const [newCourse, setNewCourse] = useState({});
-      useEffect(() => {
+    useEffect(() => {
         let id;
         const addCourse = async () => {
             const response = await api.postNewCourse(newCourse, userEmail, password);
@@ -56,7 +66,7 @@ export const ContextProvider = props => {
             history.push(`/courses/${id}`);
             setValidationError(null);
         }
-        if (authUser) { 
+        if (authUser) {
             asyncHandler(addCourse);
         }
         // eslint-disable-next-line
@@ -64,7 +74,7 @@ export const ContextProvider = props => {
 
 
     useEffect(() => {
-        if ( Cookies.get('loggedIn') === 'true' ) {
+        if (Cookies.get('loggedIn') === 'true') {
             setAuthUser(true);
             setUserId(parseInt(Cookies.get('userId')));
             setUserName(Cookies.get('username'));
@@ -92,7 +102,8 @@ export const ContextProvider = props => {
             setError,
             setNewCourse,
             setCourseValues,
-            setValidationError
+            setValidationError,
+            asyncHandler
         }
     }
 

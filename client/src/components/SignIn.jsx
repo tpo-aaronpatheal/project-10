@@ -33,11 +33,10 @@ function SignIn() {
             }
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = e => {
         e.preventDefault();
         asyncHandler(doStuff);
       }
-      
 
     return (
       <>

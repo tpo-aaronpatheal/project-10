@@ -3,9 +3,9 @@ import { NavLink, useHistory } from 'react-router-dom';
 import Context from '../context';
 import api from '../utils/api.js';
 import Cookies from 'js-cookie';
-import ValidationError from '../components/ValidationError';
+import ValidationError from './ValidationError';
 
-function SignUp() {
+function UserSignUp() {
 
     const { value } = useContext(Context);
     const history = useHistory();
@@ -36,6 +36,7 @@ function SignUp() {
     const validatePassword = () => {
         if(passwordInput.current.value === confirmPasswordInput.current.value){
             confirmPasswordInput.current.setCustomValidity('');
+            console.log(confirmPasswordInput);
         } else {
             confirmPasswordInput.current.setCustomValidity("Passwords do not match");
         }
@@ -72,4 +73,4 @@ function SignUp() {
 }
 
 
-export default SignUp;
+export default UserSignUp;

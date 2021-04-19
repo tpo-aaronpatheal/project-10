@@ -15,8 +15,16 @@ const UpdateCourse = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        await api.updateCourse(`courses/${value.courseValues.courseId}`, value.userEmail, value.password, value.courseValues.title, value.courseValues.description, value.courseValues.estimatedTime, value.courseValues.materialsNeeded)
+        try {
+        await api.updateCourse(`courses/${value.courseValues.courseId}`, value.userEmail, value.password, value.courseValues.title, value.courseValues.description, value.courseValues.estimatedTime, value.courseValues.materialsNeeded);
         history.goBack();
+        } catch(error) {
+            if (error.response.status === 400) {
+                history.push("/notfound")
+            } else {
+                history.push("/error")
+            }
+        }
     }
         
     //LOWER UPDATE
@@ -41,7 +49,7 @@ const UpdateCourse = () => {
                         </div>
                     </div>
                     <button className="button" type="submit" >Update Course</button>
-                    <NavLink to='/courses/id'><button className="button button-secondary">Cancel</button></NavLink>
+                    <NavLink to={`/courses/${value.courseValues.courseId}`}><button className="button button-secondary">Cancel</button></NavLink>
                 </form>
             </div>
     );

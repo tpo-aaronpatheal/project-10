@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import CourseCard from './CourseCard';
 
 //Navigates to page and updates path based upon click. 
-const AllCourses = () => {
+const Courses = () => {
     const { value } = useContext(Context);
 
     return (
@@ -27,4 +27,4 @@ const AllCourses = () => {
     );
 }
 
-export default AllCourses;
+export default Courses;

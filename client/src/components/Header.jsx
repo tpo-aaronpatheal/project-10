@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import Context from '../context';
 
-const Nav = () => {
+const Header = () => {
 
     const { value } = useContext(Context);
 
@@ -30,4 +30,4 @@ const Nav = () => {
     );
 }
  
-export default Nav;
+export default Header;

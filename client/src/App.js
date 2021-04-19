@@ -10,6 +10,7 @@ import CourseDetail from './components/CourseDetail'
 import Notfound from './components/NotFound'
 import CreateCourse from './components/CreateCourse';
 import DeleteCourse from './components/DeleteCourse';
+import UpdateCourse from './components/UpdateCourse';
 import PrivateRoute from './components/PrivateRoute';
 import UnhandledError from './components/UnhandledError';
 
@@ -25,6 +26,7 @@ function App() {
         <Route exact path='/signout' component={SignOut} />
         <PrivateRoute path={'/courses/create'} component={CreateCourse}/>
         <Route exact path={`/courses/:id`} component={CourseDetail}/>
+        <PrivateRoute path={'/courses/:id/update'} component={UpdateCourse}/>
         <Route exact path={'/courses/:id/delete'} component={DeleteCourse}/>
         <Route exact path='/error' component={UnhandledError} />
         <Route component={Notfound} />

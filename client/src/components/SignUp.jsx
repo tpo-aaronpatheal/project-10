@@ -24,6 +24,7 @@ function SignUp() {
                 value.actions.setUserEmail(emailInput.current.value);
                 value.actions.setPassword(encodedPassword);
                 value.actions.setUserName(`${firstNameInput.current.value} ${lastNameInput.current.value}`);
+                //value.actions.setError(null);
                 Cookies.set('loggedIn', true, {expires: 1})
                 Cookies.set('username', `${firstNameInput.current.value} ${lastNameInput.current.value}`, {expires: 1})
                 Cookies.set('email', emailInput.current.value, {expires: 1});

@@ -63,5 +63,22 @@ export default {
                 password: decodedPassword
             }
         });
+    },
+    
+    updateCourse: async(path, email, password, courseTitle, courseDescription, courseTime, courseMaterials) => {
+        const decodedPassword = atob(password);
+        const response = await axios.put(`${url}${path}`, {
+            title: courseTitle,
+            description: courseDescription,
+            estimatedTime: courseTime,
+            materialsNeeded: courseMaterials
+            }, 
+            {
+            auth: {
+                username: email,
+                password: decodedPassword
+            }
+        });
+        return response;
     }
 }

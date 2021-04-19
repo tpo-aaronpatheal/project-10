@@ -15,7 +15,6 @@ export const ContextProvider = props => {
             await cb()
         } catch (error) {
             const { response: { status, data, data: { errors } } } = error;
-
             switch (status) {
                 case 400:
                     setValidationError(errors);
@@ -53,7 +52,8 @@ export const ContextProvider = props => {
         description: "",
         estimatedTime: "",
         materialsNeeded: "",
-        userId: null
+        userId: null,
+        author: ""
     });
     
     //any time "create course" info is updated, try to add it and display error if there is one

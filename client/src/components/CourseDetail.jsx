@@ -25,7 +25,11 @@ const CourseDetail = () => {
                 }
                 value.actions.setCourseValues(course);
             } catch (error) {
-                history.push('/error')
+                if (error.response.status === 400) {
+                    history.push("/notfound")
+                } else {
+                    history.push("/error")
+                }
             }
         }
         getCourse();

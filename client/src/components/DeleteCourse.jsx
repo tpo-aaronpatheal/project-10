@@ -11,7 +11,7 @@ const DeleteCourse = () => {
     const history = useHistory();
 
     useEffect(() => {
-        api.deleteCourse(`courses/${value.courseValues.courseId}`, value.userEmail, value.password)
+        api.deleteCourse(`courses/${value.courseValues.courseId}`, value.user.email, value.user.password)
         history.go(0);
         // eslint-disable-next-line
     }, [])

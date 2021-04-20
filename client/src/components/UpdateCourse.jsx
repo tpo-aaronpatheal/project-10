@@ -16,7 +16,7 @@ const UpdateCourse = () => {
     const onSubmit = async (e) => {
         e.preventDefault()
         try {
-        await api.updateCourse(`courses/${value.courseValues.courseId}`, value.userEmail, value.password, value.courseValues.title, value.courseValues.description, value.courseValues.estimatedTime, value.courseValues.materialsNeeded);
+        await api.updateCourse(`courses/${value.courseValues.courseId}`, value.user.email, value.user.password, value.courseValues.title, value.courseValues.description, value.courseValues.estimatedTime, value.courseValues.materialsNeeded);
         history.goBack();
         } catch(error) {
             if (error.response.status === 400) {

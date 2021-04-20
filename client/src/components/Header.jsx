@@ -4,16 +4,16 @@ import Context from '../context';
 
 const Header = () => {
 
-    const { value } = useContext(Context);
+    const { value: { user: { authenticated, userName } } } = useContext(Context);
 
     return ( 
         <header>
             <div className="wrap header--flex">
                 <h1 className="header--logo"><NavLink to="/">Courses</NavLink></h1>
-                {value.authUser ? 
+                {authenticated ? 
                     <nav>
                         <ul className="header--signedin">
-                            <li>Welcome, {value.userName}!</li>
+                            <li>Welcome, {userName}!</li>
                             <li><NavLink to="/signout">Sign Out</NavLink></li>
                         </ul>
                     </nav>

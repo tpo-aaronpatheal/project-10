@@ -39,13 +39,17 @@ export const ContextProvider = props => {
         // eslint-disable-next-line
     }, [path]);
 
-    const [authUser, setAuthUser] = useState(false);
-    const [userId, setUserId] = useState()
-    const [userEmail, setUserEmail] = useState('');
-    const [userName, setUserName] = useState('')
-    const [password, setPassword] = useState('');
+    const [user, setUser] = useState({
+        authenticated: false,
+        id: '',
+        email: '',
+        userName: '',
+        password: '',
+    });
+
     const [error, setError] = useState([]);
     const [validationError, setValidationError] = useState(null);
+
     const [courseValues, setCourseValues] = useState({
         courseId: null,
         title: "",
@@ -55,19 +59,19 @@ export const ContextProvider = props => {
         userId: null,
         author: ""
     });
-    
+
     //any time "create course" info is updated, try to add it and display error if there is one
 
     const [newCourse, setNewCourse] = useState({});
     useEffect(() => {
         let id;
         const addCourse = async () => {
-            const response = await api.postNewCourse(newCourse, userEmail, password);
+            const response = await api.postNewCourse(newCourse, user.email, user.password);
             id = response.data.id;
             history.push(`/courses/${id}`);
             setValidationError(null);
         }
-        if (authUser) {
+        if (user.authenticated) {
             asyncHandler(addCourse);
         }
         // eslint-disable-next-line
@@ -75,36 +79,30 @@ export const ContextProvider = props => {
 
 
     useEffect(() => {
-        if (Cookies.get('loggedIn') === 'true') {
-            setAuthUser(true);
-            setUserId(parseInt(Cookies.get('userId')));
-            setUserName(Cookies.get('username'));
-            setUserEmail(Cookies.get('email'))
-            setPassword(Cookies.get('pass'));
-        }
-    }, [])
+        const { authenticated, id, email, userName, password } = user;
+
+        Cookies.set('loggedIn', authenticated, {expires: 1})
+        Cookies.set('userId', id, {expires: 1})
+        Cookies.set('username', userName, {expires: 1})
+        Cookies.set('email', email, {expires: 1});
+        Cookies.set('pass', password, {expires: 1});
+       
+    }, [user])
 
     const value = {
         courses,
-        authUser,
-        userId,
-        userEmail,
-        userName,
-        password,
+        user,
         error,
         validationError,
         courseValues,
         actions: {
-            setAuthUser,
-            setUserId,
-            setUserEmail,
-            setUserName,
-            setPassword,
+            setUser,
             setError,
             setNewCourse,
             setCourseValues,
             setValidationError,
-            asyncHandler
+            asyncHandler,
+            setUser
         }
     }
 

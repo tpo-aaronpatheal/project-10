@@ -9,7 +9,7 @@ const CreateCourse = () => {
     let history = useHistory()
 
 
-    const { value: { authUser, userId, userName, validationError }, value: { actions: { setNewCourse } } } = useContext(Context);
+    const { value: { user, validationError }, value: { actions: { setNewCourse } } } = useContext(Context);
 
     const courseTitle = useRef('');
     const courseDescription = useRef('');
@@ -24,15 +24,15 @@ const CreateCourse = () => {
             description: courseDescription.current.value, 
             estimatedTime: estimatedTime.current.value, 
             materialsNeeded: materialsNeeded.current.value,
-            userId: userId
+            userId: user.id
         };
 
         // check to see if user has been authenticated, route to forbidden page if not
-        authUser ? setNewCourse(course) : history.push('/forbidden');
+        user.authorized ? setNewCourse(course) : history.push('/forbidden');
     }
 
     const onCancel = () => {
-        history.goBack();
+        history.push('/');
     }
 
     return ( 
@@ -48,7 +48,7 @@ const CreateCourse = () => {
                             <input id="courseTitle" name="courseTitle" type="text" ref={courseTitle}/>
 
                             <label htmlFor="courseAuthor">Course Author</label>
-                            <input id="courseAuthor" name="courseAuthor" type="text" value={userName} readOnly/>
+                            <input id="courseAuthor" name="courseAuthor" type="text" value={user.name} readOnly/>
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea id="courseDescription" name="courseDescription" ref={courseDescription}></textarea>

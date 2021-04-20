@@ -31,8 +31,8 @@ function App() {
         <Route exact path='/signout' component={UserSignOut} />
         <PrivateRoute path={'/courses/create'} component={CreateCourse}/>
         <Route exact path={`/courses/:id`} component={CourseDetail}/>
-        <PrivateRoute exact path={'/courses/:id/update'} component={value.courseValues.userId === value.userId ? UpdateCourse : Forbidden}/>
-        <PrivateRoute exact path={'/courses/:id/delete'} component={value.courseValues.userId === value.userId ? DeleteCourse : Forbidden}/>
+        <PrivateRoute exact path={'/courses/:id/update'} component={value.courseValues.userId === value.user.id ? UpdateCourse : Forbidden}/>
+        <PrivateRoute exact path={'/courses/:id/delete'} component={value.courseValues.userId === value.user.id ? DeleteCourse : Forbidden}/>
         <Route exact path='/error' component={UnhandledError} />
         <Route component={Notfound} />
       </Switch>

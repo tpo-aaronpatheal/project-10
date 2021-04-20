@@ -80,14 +80,26 @@ export const ContextProvider = props => {
 
     useEffect(() => {
         const { authenticated, id, email, userName, password } = user;
-
-        Cookies.set('loggedIn', authenticated, {expires: 1})
-        Cookies.set('userId', id, {expires: 1})
-        Cookies.set('username', userName, {expires: 1})
-        Cookies.set('email', email, {expires: 1});
-        Cookies.set('pass', password, {expires: 1});
-       
+        if (authenticated) {
+            Cookies.set('loggedIn', authenticated, {expires: 1})
+            Cookies.set('userId', id, {expires: 1})
+            Cookies.set('username', userName, {expires: 1})
+            Cookies.set('email', email, {expires: 1});
+            Cookies.set('pass', password, {expires: 1});
+        }
     }, [user])
+
+    useEffect(() => {
+        if (Cookies.get('loggedIn') === 'true') {
+            setUser({
+                authenticated: true,
+                id: parseInt(Cookies.get('userId')),
+                email: Cookies.get('email'),
+                userName: Cookies.get('username'),
+                password: Cookies.get('pass')
+            })
+        }
+    }, [])
 
     const value = {
         courses,

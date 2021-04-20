@@ -41,7 +41,7 @@ const CourseDetail = () => {
         <>
             <div className="actions--bar">
                 <div className="wrap">
-                    {value.courseValues.userId === value.userId ?
+                    {value.courseValues.userId === value.user.id ?
                         <>
                             <NavLink className="button" to={`/courses/${index}/update`}>Update Course</NavLink>
                             <NavLink className="button" to={`/courses/${index}/delete`}>Delete Course</NavLink>
@@ -58,7 +58,7 @@ const CourseDetail = () => {
                         <div>
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{value.courseValues.title}</h4>
-                            <p>By {value.userName}</p>
+                            <p>By {value.user.userName}</p>
                             <ReactMarkdown children={value.courseValues.description} />
                         </div>
                         <div>

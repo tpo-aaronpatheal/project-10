@@ -5,11 +5,11 @@ import Context from '../context';
 import Forbidden from '../components/Forbidden';
 
 const PrivateRoute = ({ component: Component }) => {
-    const { value } = useContext(Context);
+    const { value: { user: { authenticated } } } = useContext(Context);
 
     return (
         <Route>
-            {value.authUser ? <Component /> : <Forbidden />}
+            {authenticated ? <Component /> : <Forbidden />}
         </Route>
   );
 };

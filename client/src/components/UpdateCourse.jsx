@@ -4,10 +4,13 @@ import {NavLink, useHistory } from 'react-router-dom';
 
 import api from '../utils/api';
 import Context from '../context';
+import ValidationError from './ValidationError';
 
 const UpdateCourse = () => {
     const { value } = useContext(Context);
     const history = useHistory();
+    
+    
 
     const changeHandler = (e) => {
       value.actions.setCourseValues({...value.courseValues, [e.target.name]: e.target.value})  
@@ -19,18 +22,24 @@ const UpdateCourse = () => {
         await api.updateCourse(`courses/${value.courseValues.courseId}`, value.user.email, value.user.password, value.courseValues.title, value.courseValues.description, value.courseValues.estimatedTime, value.courseValues.materialsNeeded);
         history.goBack();
         } catch(error) {
+            const { response: { status, data, data: { errors } } } = error;
             if (error.response.status === 400) {
-                history.push("/notfound")
+                value.actions.setValidationError(errors)          
             } else {
                 history.push("/error")
             }
+            console.log(error)
         }
-    }
         
+      }
+    
+        
+     
     //LOWER UPDATE
     return (
          <div className="wrap">
                 <h2>Update Course</h2>
+                {value.validationError ? <ValidationError /> : null}
                 <form onSubmit={onSubmit}>
                     <div className="main--flex">
                         <div>

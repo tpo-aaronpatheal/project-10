@@ -28,7 +28,7 @@ const CreateCourse = () => {
         };
 
         // check to see if user has been authenticated, route to forbidden page if not
-        user.authorized ? setNewCourse(course) : history.push('/forbidden');
+        user.authenticated ? setNewCourse(course) : history.push('/forbidden');
     }
 
     const onCancel = () => {
@@ -48,7 +48,7 @@ const CreateCourse = () => {
                             <input id="courseTitle" name="courseTitle" type="text" ref={courseTitle}/>
 
                             <label htmlFor="courseAuthor">Course Author</label>
-                            <input id="courseAuthor" name="courseAuthor" type="text" value={user.name} readOnly/>
+                            <input id="courseAuthor" name="courseAuthor" type="text" value={user.userName} readOnly/>
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea id="courseDescription" name="courseDescription" ref={courseDescription}></textarea>

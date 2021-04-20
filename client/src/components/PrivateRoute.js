@@ -9,7 +9,7 @@ const PrivateRoute = ({ component: Component }) => {
 
     return (
         <Route>
-            {value.authUser ? <Component /> : <Forbidden />}
+            {value.user.authenticated ? <Component /> : <Forbidden />}
         </Route>
   );
 };

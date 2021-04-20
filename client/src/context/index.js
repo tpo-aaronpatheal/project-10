@@ -79,12 +79,12 @@ export const ContextProvider = props => {
 
 
     useEffect(() => {
-        const { authenticated, userId, userEmail, userName, password } = user;
+        const { authenticated, id, email, userName, password } = user;
 
         Cookies.set('loggedIn', authenticated, {expires: 1})
-        Cookies.set('userId', userId, {expires: 1})
+        Cookies.set('userId', id, {expires: 1})
         Cookies.set('username', userName, {expires: 1})
-        Cookies.set('email', userEmail, {expires: 1});
+        Cookies.set('email', email, {expires: 1});
         Cookies.set('pass', password, {expires: 1});
        
     }, [user])

@@ -10,30 +10,24 @@ const UpdateCourse = () => {
     const { value } = useContext(Context);
     const history = useHistory();
     
-    
 
     const changeHandler = (e) => {
       value.actions.setCourseValues({...value.courseValues, [e.target.name]: e.target.value})  
     } 
 
-    const onSubmit = async (e) => {
-        e.preventDefault()
-        try {
+    const changeCourseValues = async (e) => {
         await api.updateCourse(`courses/${value.courseValues.courseId}`, value.user.email, value.user.password, value.courseValues.title, value.courseValues.description, value.courseValues.estimatedTime, value.courseValues.materialsNeeded);
         history.goBack();
-        } catch(error) {
-            const { response: { status, data, data: { errors } } } = error;
-            if (error.response.status === 400) {
-                value.actions.setValidationError(errors)          
-            } else {
-                history.push("/error")
-            }
-            console.log(error)
-        }
-        
-      }
+    }
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        value.actions.asyncHandler(changeCourseValues);
+    }
     
-        
+    const resetValidationErrors = () => {
+        value.actions.setValidationError(null);
+    }
      
     //LOWER UPDATE
     return (
@@ -58,7 +52,7 @@ const UpdateCourse = () => {
                         </div>
                     </div>
                     <button className="button" type="submit" >Update Course</button>
-                    <NavLink to={`/courses/${value.courseValues.courseId}`}><button className="button button-secondary">Cancel</button></NavLink>
+                    <NavLink to={`/courses/${value.courseValues.courseId}`}><button className="button button-secondary" onClick={resetValidationErrors}>Cancel</button></NavLink>
                 </form>
             </div>
     );

@@ -9,12 +9,13 @@ const PrivateRoute = ({ component: Component }) => {
     const { value } = useContext(Context);
 
     let path = useLocation().pathname.split('/');
-    let index = parseInt(path[2]) - 1;
+    let index = parseInt(path[2]);
+    let courseIds = value.courses.map(course => course.id)
 
 
     return (
         <Route>
-            {path[3] === 'update' && !value.courses[index]  ? <NotFound /> : (!value.user.authenticated ?  <Forbidden /> : <Component />)}
+            {path[3] === 'update' && !courseIds.includes(index)  ? <NotFound /> : (!value.user.authenticated ?  <Forbidden /> : <Component />)}
         </Route>
   );
 

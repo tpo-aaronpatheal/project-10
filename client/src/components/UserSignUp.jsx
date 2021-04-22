@@ -15,6 +15,7 @@ function UserSignUp() {
     const passwordInput = useRef('');
     const confirmPasswordInput = useRef('');
 
+
     const doStuff = async () => {
         const encodedPassword = btoa(passwordInput.current.value);
         await api.postCreateUser('users', firstNameInput.current.value, lastNameInput.current.value, emailInput.current.value, passwordInput.current.value);

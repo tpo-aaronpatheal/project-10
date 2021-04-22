@@ -25,7 +25,11 @@ function UserSignIn() {
       password: encodedPassword,
     });
     
-    history.push('/');
+    if(value.redirect === true){
+      history.push('/');
+    } else{
+      history.goBack();
+    }
   }
 
   const onSubmit = e => {

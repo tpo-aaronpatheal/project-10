@@ -10,6 +10,7 @@ const UpdateCourse = () => {
     const { value } = useContext(Context);
     const history = useHistory();
 
+    //Obtains course id from url
     const path = history.location.pathname.split('/');
     const index = parseInt(path[2]);
 
@@ -42,10 +43,12 @@ const UpdateCourse = () => {
     }, []);
 
 
+    //sets CourseValues states with inputs
     const changeHandler = (e) => {
         value.actions.setCourseValues({ ...value.courseValues, [e.target.name]: e.target.value })
     }
 
+    //Submits changes to api
     const changeCourseValues = async (e) => {    
         await api.updateCourse(`courses/${value.courseValues.courseId}`, value.user.email, value.user.password, value.courseValues.title, value.courseValues.description, value.courseValues.estimatedTime, value.courseValues.materialsNeeded);
         history.goBack();

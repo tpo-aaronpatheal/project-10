@@ -6,6 +6,7 @@ const SignOut = () => {
 
     const history = useHistory();
 
+    //removes cookies, refreshes and redirects home
     useEffect(() => {
         Cookies.remove('email');
         Cookies.remove('pass');

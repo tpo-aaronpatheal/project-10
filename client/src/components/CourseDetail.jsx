@@ -8,6 +8,7 @@ import Context from '../context';
 const CourseDetail = () => {
     const { value } = useContext(Context);
     const history = useHistory();
+    //extracts course id from url
     const index = useLocation().pathname.substring(9);
 
     useEffect(() => {

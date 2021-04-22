@@ -1,15 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Context from '../context';
+//import Context from '../context';
 
-const Header = () => {
-    const { value: { user: { authenticated, userName } } } = useContext(Context);
+const Header = props => {
+    //const { value: { user: { authenticated, userName } } } = useContext(Context);
+
+    const { userName } = props;
 
     return ( 
         <header>
             <div className="wrap header--flex">
                 <h1 className="header--logo"><NavLink to="/">Courses</NavLink></h1>
-                {authenticated ? 
+                {userName ? 
                     <nav>
                         <ul className="header--signedin">
                             <li>Welcome, {userName}!</li>

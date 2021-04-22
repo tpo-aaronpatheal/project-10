@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useHistory} from 'react-router-dom';
 import ReactMarkdown from 'react-markdown'
 
 import api from '../utils/api';
@@ -7,21 +7,26 @@ import Context from '../context';
 
 const CourseDetail = () => {
     const { value } = useContext(Context);
-
+    const history = useHistory();
     const index = useLocation().pathname.substring(9);
 
     useEffect(() => {
         const getCourse = async () => {
-                let response = await api.getCourse(`courses/${index}`)
-                let course = {
-                    courseId: response.data.id,
-                    title: response.data.title,
-                    description: response.data.description,
-                    estimatedTime: response.data.estimatedTime,
-                    materialsNeeded: response.data.materialsNeeded,
-                    userId: response.data.User.id
+                try {
+                    let response = await api.getCourse(`courses/${index}`)
+                    let course = {
+                        courseId: response.data.id,
+                        title: response.data.title,
+                        description: response.data.description,
+                        estimatedTime: response.data.estimatedTime,
+                        materialsNeeded: response.data.materialsNeeded,
+                        userId: response.data.User.id
+                    }
+                    value.actions.setCourseValues(course);
+                 }  catch (error) {
+                    // redirect to notfound if the course doesn't exist, redirect to /error if there is a server error
+                    error.response.status === 400 ? history.push('/notfound') : history.push('/error');
                 }
-                value.actions.setCourseValues(course);
         }
         value.actions.asyncHandler(getCourse);
         // eslint-disable-next-line

@@ -37,8 +37,8 @@ const UpdateCourse = () => {
                 error.response.status === 400 ? history.push('/notfound') : history.push('/error');
             }
         }
-        // eslint-disable-next-line
         getCourse();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

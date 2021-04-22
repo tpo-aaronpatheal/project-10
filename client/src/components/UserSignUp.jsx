@@ -6,7 +6,9 @@ import ValidationError from './ValidationError';
 
 const UserSignUp = props => {
 
-    console.log(props.state)
+    //const { from } = props.location.state || { from: { pathname: '/' } }
+
+    console.log(props.location.state);
 
     const { value } = useContext(Context);
     const history = useHistory();

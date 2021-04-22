@@ -9,20 +9,6 @@ export const ContextProvider = props => {
     let history = useHistory()
     let path = useLocation().pathname
 
-
-    const [redirect, setRedirect] = useState(false);
-    useEffect(()=> {
-        const signUpPath = path.split('/');
-        if('signup' === signUpPath[1]){
-            value.actions.setRedirect(true);
-        } else if('signin' === signUpPath[1]) {
-            return;
-        } else {
-            value.actions.setRedirect(false);
-        }
-    }, [path])
-
-
     // catch server/sql validation  errors
     const asyncHandler = async cb => {
         try {
@@ -46,7 +32,7 @@ export const ContextProvider = props => {
     const [courses, setCourses] = useState([]);
     useEffect(() => {
         const getCourses = async () => {
-            const response = await api.getAllCourses('courses')
+            const response = await api.getCourse('courses')
             setCourses(response.data)
         }
         asyncHandler(getCourses);
@@ -121,7 +107,6 @@ export const ContextProvider = props => {
         error,
         validationError,
         courseValues,
-        redirect,
         actions: {
             setUser,
             setError,
@@ -129,7 +114,6 @@ export const ContextProvider = props => {
             setCourseValues,
             setValidationError,
             asyncHandler,
-            setRedirect,
         }
     }
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { NavLink, useLocation, useHistory } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown'
 
 import api from '../utils/api';
@@ -7,7 +7,6 @@ import Context from '../context';
 
 const CourseDetail = () => {
     const { value } = useContext(Context);
-    let history = useHistory();
 
     const index = useLocation().pathname.substring(9);
 

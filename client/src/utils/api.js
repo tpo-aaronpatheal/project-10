@@ -2,14 +2,10 @@ import axios from 'axios';
 
 const url = 'http://localhost:5000/api/'
 
+//Api requests
+
 // eslint-disable-next-line
 export default {
-    
-
-    getAllCourses: async (path) => {
-        const response = await axios.get(`${url}${path}`);
-            return response;
-    },
 
     getCourse: async (path) => {
         const response = await axios.get(`${url}${path}`);
@@ -35,7 +31,6 @@ export default {
             emailAddress: emailAddress,
             password: password
         });
-
         return await response;
 
     },
@@ -79,7 +74,6 @@ export default {
                 password: decodedPassword
             }
         });
-        
         return response;
     }
 }

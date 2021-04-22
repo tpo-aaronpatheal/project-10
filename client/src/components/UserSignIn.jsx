@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useEffect } from 'react';
-import { NavLink, Route, Redirect, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import Context from '../context';
 import api from '../utils/api.js';
 

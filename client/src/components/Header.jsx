@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import Context from '../context';
 
 const Header = () => {
-
     const { value: { user: { authenticated, userName } } } = useContext(Context);
 
     return ( 

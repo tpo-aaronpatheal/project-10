@@ -1,7 +1,4 @@
-import React, { useContext } from 'react';
-import { Switch, Route } from 'react-router-dom'
-
-import Context from './context';
+import { Switch, Route, withRouter, useHistory } from 'react-router-dom';
 
 import Header from './components/Header';
 import Courses from './components/Courses';
@@ -19,7 +16,6 @@ import Forbidden from './components/Forbidden';
 
 function App() {
   
-  const { value } = useContext(Context);
 
   return (
     <>
@@ -27,17 +23,20 @@ function App() {
       <Switch>
         <Route exact path='/' component={Courses} />
         <Route exact path='/signin' component={UserSignIn} />
-        <Route exact path='/signup' component={UserSignUp} />
+        <Route exact path='/signup' >
+          <UserSignUp />
+        </Route>
         <Route exact path='/signout' component={UserSignOut} />
         <PrivateRoute path={'/courses/create'} component={CreateCourse}/>
         <Route exact path={`/courses/:id`} component={CourseDetail}/>
-        <PrivateRoute exact path={'/courses/:id/update'} component={value.courseValues.userId === value.user.id ? UpdateCourse : Forbidden}/>
-        <PrivateRoute exact path={'/courses/:id/delete'} component={value.courseValues.userId === value.user.id ? DeleteCourse : Forbidden}/>
+        <PrivateRoute exact path={'/courses/:id/update'} component={UpdateCourse}/>
+        <PrivateRoute exact path={'/courses/:id/delete'} component={DeleteCourse}/>
         <Route exact path='/error' component={UnhandledError} />
+        <Route exact path='/forbidden' component={Forbidden}/>
         <Route component={Notfound} />
       </Switch>
     </>
   );
 }
 
-export default App;
+export default withRouter(App);

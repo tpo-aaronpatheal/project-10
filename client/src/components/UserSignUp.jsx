@@ -4,7 +4,9 @@ import Context from '../context';
 import api from '../utils/api.js';
 import ValidationError from './ValidationError';
 
-function UserSignUp() {
+const UserSignUp = props => {
+
+    console.log(props.state)
 
     const { value } = useContext(Context);
     const history = useHistory();
@@ -15,8 +17,7 @@ function UserSignUp() {
     const passwordInput = useRef('');
     const confirmPasswordInput = useRef('');
 
-
-    const doStuff = async () => {
+    const createUser = async () => {
         const encodedPassword = btoa(passwordInput.current.value);
         await api.postCreateUser('users', firstNameInput.current.value, lastNameInput.current.value, emailInput.current.value, passwordInput.current.value);
         
@@ -45,7 +46,7 @@ function UserSignUp() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        value.actions.asyncHandler(doStuff);
+        value.actions.asyncHandler(createUser);
     }
 
     return (

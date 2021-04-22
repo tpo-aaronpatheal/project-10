@@ -11,13 +11,6 @@ const Forbidden = () => {
       <p>
         Access to this page is Forbidden
       </p>
-      <NavLink to='/signup'>
-        <button>
-          Sign Up Here!
-        </button>
-      </NavLink>
-      <p>
-      </p>
       <NavLink to='/'>
         <button>
           Return home

@@ -13,7 +13,6 @@ const CourseDetail = () => {
 
     useEffect(() => {
         const getCourse = async () => {
-            try {
                 let response = await api.getCourse(`courses/${index}`)
                 let course = {
                     courseId: response.data.id,
@@ -24,15 +23,8 @@ const CourseDetail = () => {
                     userId: response.data.User.id
                 }
                 value.actions.setCourseValues(course);
-            } catch (error) {
-                if (error.response.status === 400) {
-                    history.push("/notfound")
-                } else {
-                    history.push("/error")
-                }
-            }
         }
-        getCourse();
+        value.actions.asyncHandler(getCourse);
         // eslint-disable-next-line
     }, [])
 

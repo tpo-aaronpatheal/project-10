@@ -1,16 +1,24 @@
-import React, { useContext, useRef } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import React, { useContext, useRef, useEffect } from 'react';
+import { NavLink, Route, Redirect, useHistory } from 'react-router-dom';
 import Context from '../context';
 import api from '../utils/api.js';
 
 
-function UserSignIn() {
+const UserSignIn = props => {
 
+  const history = useHistory();
+  // send to the prev path if it was passed // otherwise send home //
+  const { from } = props.location.state || { from: { pathname: '/' } }
   const { value, value: { actions: { asyncHandler, setUser } } } = useContext(Context);
+
+  useEffect(() => {
+    if(value.user.authenticated === true) {
+       history.push(from)
+    }
+  }, [value.user.authenticated])
 
   const emailInput = useRef('');
   const passwordInput = useRef('');
-  const history = useHistory();
 
   const setCookies = async () => {
     const encodedPassword = btoa(passwordInput.current.value)
@@ -24,12 +32,10 @@ function UserSignIn() {
       userName: name,
       password: encodedPassword,
     });
+
+    console.log(value.user.authenticated)
     
-    if(value.redirect === true){
-      history.push('/');
-    } else{
-      history.goBack();
-    }
+    history.push(from);
   }
 
   const onSubmit = e => {

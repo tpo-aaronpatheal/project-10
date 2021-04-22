@@ -61,7 +61,7 @@ const CreateCourse = () => {
                             <textarea id="materialsNeeded" name="materialsNeeded" ref={materialsNeeded}></textarea>
                         </div>
                     </div>
-                    <button className="button" type="submit">Create Course</button>
+                    <button className="button" type="submit" >Create Course</button>
                     <button className="button button-secondary" onClick={onCancel}>Cancel</button>
                 </form>
             </div>

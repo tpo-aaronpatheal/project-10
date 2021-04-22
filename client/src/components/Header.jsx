@@ -1,12 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-//import Context from '../context';
 
 const Header = props => {
-    //const { value: { user: { authenticated, userName } } } = useContext(Context);
-
+    //username passed in a prop
     const { userName } = props;
 
+    //dynamically returns header if a user is logged in or logged out
     return ( 
         <header>
             <div className="wrap header--flex">

@@ -15,6 +15,7 @@ const UserSignUp = () => {
     const passwordInput = useRef('');
     const confirmPasswordInput = useRef('');
 
+    //creates user based upon inputs and encodes password
     const createUser = async () => {
         const encodedPassword = btoa(passwordInput.current.value);
         await api.postCreateUser('users', firstNameInput.current.value, lastNameInput.current.value, emailInput.current.value, passwordInput.current.value);
@@ -33,6 +34,7 @@ const UserSignUp = () => {
         history.push('/');
     }
 
+    //sets custom validation to password and confirm password fields
     const validatePassword = () => {
         if (passwordInput.current.value === confirmPasswordInput.current.value) {
             confirmPasswordInput.current.setCustomValidity('');

@@ -11,6 +11,7 @@ const DeleteCourse = () => {
     const history = useHistory();
 
     useEffect(() => {
+        //verifies if user is owner of the course, before deleting or redirecting to forbidden page
         if(value.courseValues.userId !== value.user.id){
             history.push('/forbidden')
         } else {

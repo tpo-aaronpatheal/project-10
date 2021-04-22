@@ -4,7 +4,7 @@ import Context from '../context';
 
 const PrivateRoute = ({ component: Component, location }) => {
     const { value } = useContext(Context);
-
+    //If a user is not signed in, redirects to sign in and passes current location as a prop object, else renders the component
     return (
         <Route>
             {value.user.authenticated  ?  <Component /> 

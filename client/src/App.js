@@ -1,4 +1,4 @@
-import { Switch, Route, withRouter, useHistory } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 
 import Header from './components/Header';
 import Courses from './components/Courses';

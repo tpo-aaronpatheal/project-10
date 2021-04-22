@@ -38,7 +38,8 @@ const UpdateCourse = () => {
             }
         }
         getCourse();
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); 
 
 
     const changeHandler = (e) => {
@@ -51,7 +52,7 @@ const UpdateCourse = () => {
             await api.updateCourse(`courses/${value.courseValues.courseId}`, value.user.email, value.user.password, value.courseValues.title, value.courseValues.description, value.courseValues.estimatedTime, value.courseValues.materialsNeeded);
             history.goBack();
         } catch (error) {
-            const { response: { status, data, data: { errors } } } = error;
+            const { response: { data: { errors } } } = error;
             if (error.response.status === 400) {
                 value.actions.setValidationError(errors)
             } else {

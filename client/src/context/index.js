@@ -39,6 +39,11 @@ export const ContextProvider = props => {
         // eslint-disable-next-line
     }, [path]);
 
+    //reset validation errors on path change
+    useEffect(() => {
+        setValidationError(null);
+    }, [path])
+
     const [user, setUser] = useState({
         authenticated: false,
         id: '',

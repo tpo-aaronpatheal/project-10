@@ -4,11 +4,7 @@ import Context from '../context';
 import api from '../utils/api.js';
 import ValidationError from './ValidationError';
 
-const UserSignUp = props => {
-
-    //const { from } = props.location.state || { from: { pathname: '/' } }
-
-    console.log(props.location.state);
+const UserSignUp = () => {
 
     const { value } = useContext(Context);
     const history = useHistory();
@@ -40,7 +36,6 @@ const UserSignUp = props => {
     const validatePassword = () => {
         if (passwordInput.current.value === confirmPasswordInput.current.value) {
             confirmPasswordInput.current.setCustomValidity('');
-            console.log(confirmPasswordInput);
         } else {
             confirmPasswordInput.current.setCustomValidity("Passwords do not match");
         }

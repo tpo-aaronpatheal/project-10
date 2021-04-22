@@ -1,4 +1,6 @@
-import { Switch, Route, withRouter, useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
+import Context from './context';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 
 import Header from './components/Header';
 import Courses from './components/Courses';
@@ -15,25 +17,24 @@ import UnhandledError from './components/UnhandledError';
 import Forbidden from './components/Forbidden';
 
 function App() {
-  
+  const { value } = useContext(Context);
 
   return (
     <>
-      <Header />
+      <Header userName={value.user.userName}/>
       <Switch>
         <Route exact path='/' component={Courses} />
         <Route exact path='/signin' component={UserSignIn} />
-        <Route exact path='/signup' >
-          <UserSignUp />
-        </Route>
+        <Route exact path='/signup' component={UserSignUp} />
         <Route exact path='/signout' component={UserSignOut} />
-        <PrivateRoute path={'/courses/create'} component={CreateCourse}/>
+        <PrivateRoute exact path={'/courses/create'} component={CreateCourse}/>
         <Route exact path={`/courses/:id`} component={CourseDetail}/>
         <PrivateRoute exact path={'/courses/:id/update'} component={UpdateCourse}/>
         <PrivateRoute exact path={'/courses/:id/delete'} component={DeleteCourse}/>
         <Route exact path='/error' component={UnhandledError} />
         <Route exact path='/forbidden' component={Forbidden}/>
-        <Route component={Notfound} />
+        <Route exact path='/notfound' component={Notfound} />
+        <Redirect to='/notfound' />
       </Switch>
     </>
   );

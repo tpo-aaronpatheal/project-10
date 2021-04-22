@@ -37,6 +37,7 @@ const UpdateCourse = () => {
                 error.response.status === 400 ? history.push('/notfound') : history.push('/error');
             }
         }
+        // eslint-disable-next-line
         getCourse();
     }, []);
 
@@ -45,23 +46,18 @@ const UpdateCourse = () => {
         value.actions.setCourseValues({ ...value.courseValues, [e.target.name]: e.target.value })
     }
 
-    const onSubmit = async (e) => {
-        e.preventDefault()
-        try {
-            await api.updateCourse(`courses/${value.courseValues.courseId}`, value.user.email, value.user.password, value.courseValues.title, value.courseValues.description, value.courseValues.estimatedTime, value.courseValues.materialsNeeded);
-            history.goBack();
-        } catch (error) {
-            const { response: { status, data, data: { errors } } } = error;
-            if (error.response.status === 400) {
-                value.actions.setValidationError(errors)
-            } else {
-                history.push("/error")
-            }
-            console.log(error)
-        }
-
+    const changeCourseValues = async (e) => {    
+        await api.updateCourse(`courses/${value.courseValues.courseId}`, value.user.email, value.user.password, value.courseValues.title, value.courseValues.description, value.courseValues.estimatedTime, value.courseValues.materialsNeeded);
+        history.goBack();
     }
-
+     const onSubmit = async (e) => {
+         e.preventDefault();
+         value.actions.asyncHandler(changeCourseValues);
+     }
+    
+    const resetValidationErrors = () => {
+        value.actions.setValidationError(null);
+    }
 
 
     //LOWER UPDATE
@@ -86,8 +82,8 @@ const UpdateCourse = () => {
                         <textarea id="materialsNeeded" name="materialsNeeded" type="text" onChange={changeHandler} value={value.courseValues.materialsNeeded}></textarea>
                     </div>
                 </div>
-                <button className="button" type="submit" >Update Course</button>
-                <NavLink to={`/courses/${value.courseValues.courseId}`}><button className="button button-secondary">Cancel</button></NavLink>
+                <button className="button" type="submit" onClick={resetValidationErrors}>Update Course</button>
+                <NavLink to={`/courses/${value.courseValues.courseId}`}><button className="button button-secondary" onClick={resetValidationErrors}>Cancel</button></NavLink>
             </form>
         </div>
     );

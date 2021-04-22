@@ -15,7 +15,7 @@ const UserSignIn = props => {
     if(value.user.authenticated === true) {
        history.push(from)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [value.user.authenticated])
 
   const emailInput = useRef('');
@@ -34,8 +34,6 @@ const UserSignIn = props => {
       password: encodedPassword,
     });
 
-    console.log(value.user.authenticated)
-    
     history.push(from);
   }
 

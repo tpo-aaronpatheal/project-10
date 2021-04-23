@@ -9,41 +9,7 @@ export const ContextProvider = props => {
     let history = useHistory()
     let path = useLocation().pathname
 
-    // catch server/sql validation  errors
-    const asyncHandler = async cb => {
-        try {
-            await cb()
-        } catch (error) {
-            const { response: { status, data, data: { errors } } } = error;
-            switch (status) {
-                case 400:
-                    setValidationError(errors);
-                    break;
-                case 401:
-                    setError(data);
-                    break;
-                default:
-                    history.push('/error');
-                    break;
-            }
-        }
-    }
-
-    const [courses, setCourses] = useState([]);
-    useEffect(() => {
-        const getCourses = async () => {
-            const response = await api.getCourse('courses')
-            setCourses(response.data)
-        }
-        asyncHandler(getCourses);
-        // eslint-disable-next-line
-    }, [path]);
-
-    //reset validation errors on path change
-    useEffect(() => {
-        setValidationError(null);
-    }, [path])
-
+    //----------------- user authentication state -----------------// 
     const [user, setUser] = useState({
         authenticated: false,
         id: '',
@@ -51,37 +17,6 @@ export const ContextProvider = props => {
         userName: '',
         password: '',
     });
-
-    const [error, setError] = useState([]);
-    const [validationError, setValidationError] = useState(null);
-
-    const [courseValues, setCourseValues] = useState({
-        courseId: null,
-        title: "",
-        description: "",
-        estimatedTime: "",
-        materialsNeeded: "",
-        userId: null,
-        author: ""
-    });
-
-    //any time "create course" info is updated, try to add it and display error if there is one
-
-    const [newCourse, setNewCourse] = useState({});
-    useEffect(() => {
-        let id;
-        const addCourse = async () => {
-            const response = await api.postNewCourse(newCourse, user.email, user.password);
-            id = response.data.id;
-            history.push(`/courses/${id}`);
-            setValidationError(null);
-        }
-        if (user.authenticated) {
-            asyncHandler(addCourse);
-        }
-        // eslint-disable-next-line
-    }, [newCourse]);
-
 
     useEffect(() => {
         const { authenticated, id, email, userName, password } = user;
@@ -106,6 +41,74 @@ export const ContextProvider = props => {
         }
     }, [])
 
+    //----------------- error state -----------------// 
+    // catch server/sql validation  errors
+    const asyncHandler = async cb => {
+        try {
+            await cb()
+        } catch (error) {
+            const { response: { status, data, data: { errors } } } = error;
+            switch (status) {
+                case 400:
+                    setValidationError(errors);
+                    break;
+                case 401:
+                    setError(data);
+                    break;
+                default:
+                    history.push('/error');
+                    break;
+            }
+        }
+    }
+
+    const [validationError, setValidationError] = useState(null);
+     //reset validation errors on path change
+     useEffect(() => {
+        setValidationError(null);
+    }, [path])
+
+    const [error, setError] = useState([]);
+
+    //----------------- course state -----------------//
+    const [courses, setCourses] = useState([]);
+
+    useEffect(() => {
+        const getCourses = async () => {
+            const response = await api.getCourse('courses')
+            setCourses(response.data)
+        }
+        asyncHandler(getCourses);
+        // eslint-disable-next-line
+    }, [path]);
+
+    const [courseValues, setCourseValues] = useState({
+        courseId: null,
+        title: "",
+        description: "",
+        estimatedTime: "",
+        materialsNeeded: "",
+        userId: null,
+        author: ""
+    });
+    
+    //any time "create course" info is updated, try to add it and display error if there is one
+    const [newCourse, setNewCourse] = useState({});
+    useEffect(() => {
+        let id;
+        const addCourse = async () => {
+            const response = await api.postNewCourse(newCourse, user.email, user.password);
+            id = response.data.id;
+            history.push(`/courses/${id}`);
+            setValidationError(null);
+        }
+        if (user.authenticated) {
+            asyncHandler(addCourse);
+        }
+        // eslint-disable-next-line
+    }, [newCourse]);
+
+    //----------------- values passed to app via Context Provider -----------------//
     const value = {
         courses,
         user,
